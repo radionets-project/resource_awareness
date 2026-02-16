@@ -1,0 +1,133 @@
+\usepackage{fontspec}
+\usepackage[english]{babel}
+
+\usepackage{fontawesome5}
+
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{mleftright}
+
+\usepackage[
+  math-style=ISO,
+  bold-style=ISO,
+  sans-style=italic,
+  nabla=upright,
+  partial=upright,
+  mathrm=sym,
+]{unicode-math}
+\setmathfont{Fira Math}[Scale=MatchLowercase]
+
+\usepackage[
+  locale=UK,
+  separate-uncertainty=true,
+  per-mode=symbol-or-fraction,
+]{siunitx}
+
+\usepackage[
+  german=quotes,
+  autostyle,
+]{csquotes}
+\usepackage{xfrac}
+
+\usepackage{tabularray}
+\UseTblrLibrary{booktabs, siunitx, varwidth}
+\usepackage{threeparttable}
+
+\usepackage{graphicx}
+
+\usepackage[
+  compatibility=false,
+]{caption}
+\usepackage{subcaption}
+
+\usepackage{xcolor}
+\usepackage{metalogo}
+\usepackage{pdflscape}
+
+\usepackage{fancyvrb}
+\usepackage[outputdir=build]{minted2}
+\setminted{
+  autogobble,
+  breaklines,
+  stripnl=true,
+}
+\usemintedstyle{code}
+
+\usepackage[
+  theorems,
+  many,
+]{tcolorbox}
+
+\usepackage{adjustbox}
+
+\usepackage{tikz}
+\usetikzlibrary{
+  arrows,
+  arrows.meta,
+  graphs,
+  graphdrawing,
+  positioning,
+  shadows,
+  shapes,
+}
+
+\usepackage[
+  shortcuts,
+]{extdash}
+
+\usepackage[noframe]{showframe}
+\usepackage{bookmark}
+
+
+\tikzset{
+    position label/.style={
+       below = 3pt,
+       text height = 1.5ex,
+       text depth = 1ex
+    },
+    brace/.style={
+     decoration={brace},
+     decorate
+   }
+}
+
+% This adds a circle with a picture of your choice in it.
+% Usage:
+% \roundpic[<optional arguments>, e.g. xshift or yshift]\
+% {<radius of the cirlce [cm]>}{<picture width [cm]>}{<path_to_picture>}{x pos}{y pos}{label}
+% TO BE PUT INSIDE TIKZ ENVIRONMENT (i.e. \begin{tikzpicture} \roundpic... \end{tikzpicture})
+\NewDocumentCommand \roundpic {o o m m m m m o}{%
+  \node [%
+    circle, draw, minimum size=#3, #1,
+    path picture = {%
+      \node [#2] at (path picture bounding box.center) {%
+        \IfNoValueF{#8}{\hyperlink{#8}\begingroup}
+        \includegraphics[#4]{#5}
+        \IfNoValueF{#8}{\endgroup}
+      };
+    }
+  ] at (#6, #7) {};
+}%
+
+\NewDocumentCommand\sectionslide{m o}{%
+  {
+  \setbeamertemplate{background} {
+    \begin{tikzpicture}[remember picture,overlay]
+      \node [anchor=north, yshift=0.25cm] at (current page.north) {
+        \reflectbox{\includegraphics[height=\pageheight+0.5cm]{images/sec_img.jpg}}
+      };
+      \fill[black, path fading=titlefade, fading transform={xscale=.3, xshift=-1.25cm}]
+          (current page.north west) ++(0cm,1cm) rectangle (current page.south east);
+    \end{tikzpicture}
+  }
+  \begin{frame}
+    \begin{tikzpicture}[remember picture,overlay]
+      \node [anchor=east, opacity=0.3] at ([xshift=-15pt]current page.east) {#2};
+      \node [font=\bfseries\huge] (title) at (current page.center) {#1};
+      \draw [tugreen, line width=1.2pt] (title.south west) -- (title.north west);
+    \end{tikzpicture}
+  \end{frame}
+  }
+}
+

@@ -1,0 +1,308 @@
+\ProvidesPackage{beamerthemecode}[2025/07/01 Code Theme]
+
+%Requirements
+\RequirePackage{xcolor}
+\RequirePackage{xkeyval}
+\RequirePackage{xparse}
+\RequirePackage{ifluatex}
+\RequirePackage{ifxetex}
+\RequirePackage{calc}
+\RequirePackage{fontspec}
+\RequirePackage{tikz}
+\usetikzlibrary{calc,patterns,quotes,tikzmark,angles,decorations.pathreplacing,fadings}
+
+
+\mode<presentation>
+\newif\if@showtotalframes\@showtotalframesfalse
+\DeclareOptionX{ShowTotalFrames}{\@showtotalframestrue}
+
+\newif\if@progressbar\@progressbarfalse
+\DeclareOptionX{ProgressBar}{\@progressbartrue}
+
+\newcommand{\progressbar@start}{0}
+\DeclareOptionX{ProgressBarStart}[0]{\renewcommand{\progressbar@start}{#1}}
+\ProcessOptionsX
+
+\setbeamersize{text margin left=15pt, text margin right=15pt}
+\usefonttheme{professionalfonts}
+
+
+\newcommand\theinstitutelogo{}
+\newcommand\institutelogo[1]{\renewcommand\theinstitutelogo{#1}}
+
+\newcommand\thetitleimagecredit{}
+\newcommand\titleimagecredit[1]{\renewcommand\thetitleimagecredit{#1}}
+
+\newcommand\thecontact{}
+\newcommand\contact[1]{\renewcommand\thecontact{#1}}
+
+\setsansfont{FiraSans Light}[
+  Scale=MatchLowercase,
+  BoldFont=FiraSans Medium,
+]
+\setmonofont{Fira Code}[Scale=MatchLowercase]
+
+\setbeamertemplate{navigation symbols}{}
+
+% TITLE PAGE
+\setbeamertemplate{title page}
+{%
+  \begin{tikzpicture}[remember picture, overlay]
+    \fill [cblack] (current page.south west) rectangle (current page.north east);
+  \end{tikzpicture}
+  \ifx\inserttitle\empty
+  \else%
+      \begin{beamercolorbox}[center, wd=\textwidth]{title}
+        \usebeamerfont{title}\inserttitle
+      \end{beamercolorbox}%
+      \ifx\insertsubtitle\empty%
+        \newline%
+      \else%
+        \\[\baselineskip]%
+        \begin{beamercolorbox}[center, wd=\textwidth]{subtitle}
+          \usebeamerfont{subtitle}\insertsubtitle\newline%
+        \end{beamercolorbox}%
+      \fi%
+    \vspace{\fill}
+  \fi%
+  \ifx\insertauthor\empty%
+  \else%
+    \begin{beamercolorbox}[center, wd=\textwidth]{author}
+      \usebeamerfont{author}\insertauthor%
+    \end{beamercolorbox}%
+  \fi
+  \ifx\thecontact\empty%
+  \else%
+    \\[\baselineskip]%
+    \begin{beamercolorbox}[center, wd=\textwidth]{contact}
+      \usebeamerfont{contact}\thecontact%
+    \end{beamercolorbox}%
+    \vspace{0.5cm}%
+  \fi%
+  \ifx\insertdate\empty%
+  \else%
+    \\[\baselineskip]%
+    \begin{beamercolorbox}[center, wd=\textwidth]{date}
+      \usebeamerfont{date}\insertdate%
+    \end{beamercolorbox}%
+    \vspace{-1ex}%
+  \fi%
+
+  \ifx\insertinstitute\empty%
+  \else%
+    \begin{beamercolorbox}[wd=0.55\textwidth]{institute}
+      \usebeamerfont{institute}\insertinstitute%
+    \end{beamercolorbox}%
+  \fi%
+  \vspace{\fill}
+}
+
+% FOOTER
+\newlength{\footerleftwidth}
+\setlength{\footerleftwidth}{0.8\paperwidth}
+\newlength{\footerrightwidth}
+\setlength{\footerrightwidth}{0.2\paperwidth-\beamer@rightmargin}
+%
+\setbeamertemplate{footline}
+{%
+  \ifnum\insertframenumber=1%
+  \else%
+    \leavevmode
+    \begin{beamercolorbox}[
+      wd=\footerleftwidth,
+      ht=4ex,
+      dp=10pt,
+      leftskip=\beamer@leftmargin,
+    ]{author in head/foot}%
+      {\usebeamerfont{author in head/foot}\insertshortauthor}%
+      \ifx\beamer@shortdate\empty\else%
+      ~|~{\usebeamerfont{date in head/foot}\insertshortdate}%
+      \fi%
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[
+      wd=\footerrightwidth,
+      ht=4ex,
+      dp=10pt,
+      rightskip=\beamer@rightmargin,
+    ]{frame}%
+      \raggedleft%
+      \usebeamerfont{framenumber}\insertframenumber%
+      \if@showtotalframes%
+      ~/~\inserttotalframenumber%
+      \fi%
+    \end{beamercolorbox}%
+    \vfill
+    \usebeamercolor{separation line}%
+    \if@progressbar%
+      \progressb@progressb%
+    \else%
+      \rule{\paperwidth}{0.4pt}%
+    \fi%
+  \fi%
+}
+
+
+\setbeamertemplate{itemize items}[circle]
+
+% Progress bar
+\makeatletter
+\newcommand\progressb@progressb{}                 % the progress bar command
+\newcount\progressb@tmpcounta                     % auxiliary counter
+\newcount\progressb@tmpcountb                     % auxiliary counter
+\newdimen\progressb@pbht                          % progress bar height
+\newdimen\progressb@pbwd                          % progress bar width
+\newdimen\progressb@tmpdim                        % auxiliary dimension
+
+\progressb@pbwd=\paperwidth
+\newcommand\progressb@ffn{\progressbar@start}      % needed amount of frames for
+                                                   % title page and table of contents slide
+% progress bar definition
+\def\progressb@progressb{%
+    \ifnum\insertframenumber>\progressb@ffn
+
+    \progressb@tmpcounta=\insertframenumber
+    \advance\progressb@tmpcounta by -\progressb@ffn
+    \progressb@tmpcountb=\inserttotalframenumber
+    \advance\progressb@tmpcountb by -\progressb@ffn
+    \progressb@tmpdim=\progressb@pbwd
+    \multiply\progressb@tmpdim by \progressb@tmpcounta
+    \divide\progressb@tmpdim by \progressb@tmpcountb
+  \centering
+  \begin{tikzpicture}[thin]
+    \draw[color=cwhite] %
+      (0,0) -- (\progressb@pbwd,0);
+    \draw[color=cpink] %
+      (0,0) -- (\progressb@tmpdim,0);
+  \end{tikzpicture}%
+  \fi%
+}
+
+% DEFAULT FRAMETITLE
+\setbeamertemplate{frametitle}[default][center]
+
+
+%% FONTS
+\setbeamerfont{author}{size=\huge, series=\ttfamily}
+\setbeamerfont{title}{size=\fontsize{1.5cm}{1.2cm}\selectfont, series=\ttfamily}
+\setbeamerfont{subtitle}{size=\Huge, series=\ttfamily}
+\setbeamerfont{date}{size=\huge, series=\bfseries\ttfamily}
+\setbeamerfont{contact}{size=\huge, series=\ttfamily}
+
+\setbeamerfont{frametitle}{size=\huge, series=\bfseries\ttfamily}
+\setbeamerfont{framenumber}{series=\bfseries}
+
+\setbeamerfont{institute}{size=\large}
+\setbeamerfont{section in head/foot}{size=\small}
+\setbeamerfont{subsection in head/foot}{size=\small}
+\setbeamerfont{institute in head/foot}{size=\large}
+
+\setbeamerfont{item}{series=\bfseries}
+\setbeamerfont{itemize/enumerate body}{size=\normalfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\normalfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\normalfont}
+
+\setbeamerfont{block title}{series=\bfseries}
+\setbeamerfont{section in toc}{series=\bfseries}
+
+\setbeamerfont{note page}{size=\large}
+
+\setbeamerfont{bibliography entry author}{series=\bfseries}
+
+
+%% COLORS
+\xdefinecolor{cyellow}{HTML}{ffe648}
+\xdefinecolor{ccyan}{HTML}{00d7e9}
+\xdefinecolor{cpink}{HTML}{ff508c}
+\xdefinecolor{cblack}{HTML}{222436}
+\xdefinecolor{cwhite}{HTML}{f2f2f2}
+
+
+\hypersetup{colorlinks=true, linkcolor=darkgray, urlcolor=cpink!80!cblack}
+
+\setbeamercolor{background canvas}{bg=cwhite}
+
+\setbeamercolor{section in head/foot}{fg=cpink, bg=}
+\setbeamercolor{framenumber}{fg=cpink, bg=}
+\setbeamercolor{author in head/foot}{bg=}
+
+\setbeamercolor{normal text}{fg=cblack, bg=}
+\setbeamercolor{alerted text}{fg=cyellow, bg=}
+\setbeamercolor{palette primary}{fg=cblack, bg=}
+\setbeamercolor{palette secondary}{fg=cpink, bg=}
+
+\setbeamercolor{title}{fg=cpink, bg=}
+\setbeamercolor{subtitle}{fg=ccyan, bg=}
+\setbeamercolor{structure}{fg=cpink, bg=}
+
+\setbeamercolor{author}{fg=ccyan, bg=}
+\setbeamercolor{date}{fg=ccyan, bg=}
+\setbeamercolor{institute}{fg=ccyan, bg=}
+\setbeamercolor{contact}{fg=ccyan!80!cblack, bg=}
+
+\setbeamercolor{frametitle}{fg=cpink, bg=}
+
+\setbeamercolor{item}{fg=cpink, bg=}
+
+\setbeamercolor{block title}{fg=, bg=cpink}
+\setbeamercolor{block body}{fg=cblack, bg=}
+
+\setbeamercolor{section number in toc}{fg=cpink, bg=}
+\setbeamercolor{section in toc}{fg=cblack, bg=}
+
+\setbeamercolor{bibliography entry author}{fg=cpink}
+\setbeamercolor{bibliography entry title}{fg=cpink!80!cwhite}
+\setbeamercolor{bibliography entry note}{fg=cpink}
+
+
+
+\NewDocumentEnvironment {darkframe} { O{} g }
+{%
+  \setbeamercolor{background canvas}{bg=cblack}
+  \setbeamercolor{normal text}{fg=cwhite, bg=}
+  \setbeamercolor{palette primary}{fg=cwhite, bg=}
+  \setbeamercolor{block body}{fg=cwhite, bg=}
+  \setbeamercolor{section in toc}{fg=cwhite, bg=}
+
+  \usebeamercolor[fg]{normal text}
+  \IfValueTF{#2}{
+    \begin{frame}[fragile, environment=darkframe, #1]{#2}
+  }{
+    \begin{frame}[fragile, environment=darkframe, #1]
+  }
+}{%
+    \end{frame}
+}
+
+\NewDocumentEnvironment {splitframe} { O{} g g G{0.6} }
+{%
+  \begin{frame}[environment=splitframe, #1]
+    \visualsplit{#4}
+    \dualframetitle{#4}{#2}{#3}
+  }{
+  \end{frame}
+}
+
+\NewDocumentCommand \dualframetitle { m g g } {%
+  \begin{tikzpicture}[overlay, remember picture]
+    % define macros (in pt)
+    \pgfmathsetmacro{\lwidth}{#1 * \paperwidth}
+    \pgfmathsetmacro{\rwidth}{(1 - #1) * \paperwidth}
+    \pgfmathsetmacro{\lcenter}{\lwidth / 2}
+    \pgfmathsetmacro{\rcenter}{\lwidth + \rwidth / 2}
+    \node [cpink, anchor=center] at ([xshift=\lcenter pt, yshift=-16.8pt]current page.north west){
+      \IfNoValueTF{#2}{}{\usebeamerfont{frametitle}#2}%
+    };
+    \node [cpink, anchor=center] at ([xshift=\rcenter pt, yshift=-16.8pt]current page.north west){
+      \IfNoValueTF{#3}{}{\usebeamerfont{frametitle}#3}%
+    };
+  \end{tikzpicture}
+}
+\NewDocumentCommand \visualsplit { m }{%
+  \pgfmathsetmacro{\split}{(1-#1)*\paperwidth}
+  \begin{tikzpicture}[remember picture, overlay]
+    \fill [cwhite] (current page.south east) rectangle (current page.north east);
+    \fill [cblack] (current page.south east) rectangle ([xshift=-\split pt]current page.north east);
+  \end{tikzpicture}
+}
+
+\mode<all>

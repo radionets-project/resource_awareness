@@ -1,0 +1,9 @@
+name: codetheme
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - pygments
+  - pip
+  - pip:
+    - ./pygments_style/
