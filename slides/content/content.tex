@@ -3,9 +3,9 @@
     \begin{column}{0.55\textwidth}
       \begin{itemize}
         \setlength{\itemsep}{1.5em}
-        \item Growing computatuinal demands of AI in physics
+        \item Growing computational demands of AI in physics
         \item Environmental impact: CO$_2$ footprint of training and inference
-        \item Compute costs and computing cluster ressource allocation
+        \item Compute costs and computing cluster resource allocation
         \item Tracking resources as part of scientific documentation and reproducibility
       \end{itemize}
     \end{column}
@@ -41,38 +41,32 @@
   \Tiny\texttt{[IceCube Collaboration, Science 2023]}
 \end{frame}
 
-\begin{frame}{AI Workflows in Physics}
-  \centering
-  \include{content/ai_workflow.tex}
-\end{frame}
-
 \begin{frame}{DFG Sustainability Guidelines}
-      % \begin{itemize}
-      %   \setlength{\itemsep}{1.5em}
-      %   \item Growing computatuinal demands of AI in physics
-      %   \item Environmental impact: CO$_2$ footprint of training and inference
-      %   \item Compute costs and computing cluster ressource allocation
-      %   \item Tracking resources as part of scientific documentation and reproducibility
-      % \end{itemize}
   \centering
   \includegraphics[width=.8\textwidth]{images/dfg_sustainability.png}
   \Tiny\texttt{[https://www.dfg.de/en/basics-topics/developments-within-the-research-system/sustainability-guide-for-research-processes]}
 \end{frame}
 
+\begin{frame}{AI Workflows in Physics}
+  \centering
+  \include{content/ai_workflow.tex}
+\end{frame}
+
 \begin{frame}{ML tracking/monitoring in scientific workflows}
   \begin{columns}
     \begin{column}{0.55\textwidth}
-      % \begin{itemize}
-      %   \setlength{\itemsep}{1.5em}
-      %   \item Growing computatuinal demands of AI in physics
-      %   \item Environmental impact: CO$_2$ footprint of training and inference
-      %   \item Compute costs and computing cluster ressource allocation
-      %   \item Tracking resources as part of scientific documentation and reproducibility
-      % \end{itemize}
+      \begin{itemize}
+        \setlength{\itemsep}{1.5em}
+        \item Need for reproducibility in scientific research
+        \item Documentation requirements for publications
+        \item Integration with existing workflows
+        \item MLflow\footnote{\url{https://mlflow.org/}} / Weights \& Biases\footnote{\url{https://wandb.ai/}} / Comet\footnote{\url{https://www.comet.com/site/}}
+      \end{itemize}
+    \vspace*{1cm}
     \end{column}
     \begin{column}{0.45\textwidth}
-      % \centering
-      % \includegraphics[width=\textwidth]{images/AI_physics_publications.png}
+      \centering
+      \includegraphics[width=\textwidth]{images/comet.png}
     \end{column}
   \end{columns}
 \end{frame}
@@ -99,12 +93,29 @@
 \begin{frame}{Typical Resource Profile in Physics AI Applications}
   \begin{columns}
     \begin{column}{0.55\textwidth}
-      % \begin{itemize}
-      %   \setlength{\itemsep}{1.5em}
-      %   \item Energy consumption (kWh, CO$_2$ equivalent)
-      %   \item GPU/CPU utilization
-      %   \item Memory usage
-      % \end{itemize}
+
+    \begin{table}
+      \centering
+      \begin{tabular}{lcc}
+        \toprule
+        \textbf{Workflow Stage} & \textbf{Time} & \textbf{Energy} \\
+        \midrule
+        \textbf{Data Creation:} & & \\
+        Simulation Generation & X hours & Y kWh \\
+        Data Preprocessing & X hours & Y kWh \\
+        \midrule
+        \textbf{Development Cycle:} & & \\
+        Model Selection & X hours & Y kWh \\
+        Hyperparameter Tuning & X hours & Y kWh \\
+        Loss Selection & X hours & Y kWh \\
+        \midrule
+        \textbf{Production:} & & \\
+        Inference Run & X hours & Y kWh \\
+        \midrule
+        \textbf{Development Total} & XX hours & YY kWh \\
+        \bottomrule
+      \end{tabular}
+    \end{table}
     \end{column}
     \begin{column}{0.45\textwidth}
       % \centering
