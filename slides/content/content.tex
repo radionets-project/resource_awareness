@@ -215,6 +215,95 @@
 
 \end{frame}
 
+\begin{frame}{CodeCarbon: Overview}
+  \begin{columns}
+    \begin{column}{0.55\textwidth}
+      \begin{itemize}
+        \setlength{\itemsep}{1.5em}
+        \item CO$_2$ emission tracking
+        \item Developed by open-source community
+        \item CPU, GPU and TPU workloads
+        \item Real-time monitoring and post-run analysis
+        \item Multi-GPU support
+        \item $< 1\%$ performance overhead
+      \end{itemize}
+      \vspace*{1cm}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+      \centering
+      \includegraphics[height=4cm]{images/codecarbon_logo.png}\\
+      \Tiny\texttt{[https://codecarbon.io/]}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{CodeCarbon: Data Output}
+  \begin{columns}
+    \begin{column}{0.4\textwidth}
+      \begin{itemize}
+        \setlength{\itemsep}{1.5em}
+        \item Energy consumption (kWh)
+        \item CO$_2$ emissions (kg CO$_2$eq)
+        \item Duration
+        \item Timestamp
+        \item Hardware details (CPU/GPU/TPU type, count)
+        \item Regional CO$_2$ factors
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.6\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{images/global_equivalents.png}\\
+      \Tiny\texttt{[https://codecarbon.io/]}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{splitframe}[fragile]{CodeCarbon: Getting Started}{Python}{0.5}
+  \begin{columns}[t]
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}
+        \setlength{\itemsep}{1.5em}
+        \item GitHub: \url{https://github.com/mlco2/codecarbon}
+        \item Installable via pip
+        \item CSV output with emissions data
+        \item Automatic logging (e.g. MLflow/W\&B)
+      \end{itemize}
+    \end{column}
+    \hfill
+    \begin{column}{0.48\textwidth}
+      \color{cwhite}
+      \inputminted{latex}{content/getting_started_codecarbon.tex}
+    \end{column}
+  \end{columns}
+\end{splitframe}
+
+\begin{frame}{CodeCarbon: Practical Considerations}
+  \begin{columns}
+    \begin{column}{0.55\textwidth}
+      Good for:
+      \vspace{1em}
+      \begin{itemize}
+        \setlength{\itemsep}{1.5em}
+        \item Comparing model architectures
+        \item Hyperparameter optimization experiments
+        \item Single-machine or single-node workloads
+        \item Quick integration into existing pipelines
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+      Struggles with:
+      \vspace{1em}
+      \begin{itemize}
+        \setlength{\itemsep}{1.5em}
+        \item Ground-truth validation
+        \item Multi-node HPC jobs
+        \item Accuracy: $\pm10-20\%$ for GPU workloads
+        \item Average regional CO₂ factors
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
 
 \begin{frame}{LAMARR Energy Tracker (LET)}
 
