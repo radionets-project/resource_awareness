@@ -1,0 +1,96 @@
+\begin{tikzpicture}[
+    every node/.style={align=center},
+    arrow/.style={
+        ->,
+        -{Stealth[length=8pt]},
+        thick,
+        shorten >=4pt,
+        shorten <=4pt
+    },
+    scale=0.7,
+]
+
+
+
+
+% ---- Simulations & Data Processing (left side) ----
+
+\def\cx{-8.5}
+\def\cy{0.45}
+\def\cs{0.75}
+\def\ov{0.4}
+\def\nr{0.1}
+
+\coordinate (A) at (\cx,     \cy+\ov*2);
+\coordinate (B) at (\cx-\cs, \cy+\ov);
+\coordinate (C) at (\cx,     \cy);
+\coordinate (D) at (\cx+\cs, \cy+\ov);
+\coordinate (E) at (\cx-\cs, \cy-\cs+\ov);
+\coordinate (F) at (\cx,     \cy-\cs);
+\coordinate (G) at (\cx+\cs, \cy-\cs+\ov);
+
+\draw[thick] (A) -- (B) -- (C) -- (D) -- cycle;
+\draw[thick] (B) -- (C) -- (F) -- (E) -- cycle;
+\draw[thick] (D) -- (C) -- (F) -- (G) -- cycle;
+
+\foreach \pt in {A, B, C, D, E, F, G}
+    \fill (\pt) circle (\nr);
+
+\node[font=\itshape] at (\cx, -1.1) {Simulations \&\\Data Processing};
+\draw[arrow, thick] (\cx+1.6, 0.0) -- (-2.9, 0.0);
+
+% ---- Circle diagram ----
+% Three arcs that together form the complete circle, each with an arrow.
+% They meet exactly: 150->30, 30->-90, -90->-210 (=-210+360=150)
+
+\draw[thick, ->, -{Stealth[length=8pt]}]
+    ([shift={(150:2.8cm)}]0,0)
+    arc[start angle=150, end angle=30, radius=2.8cm];
+
+\draw[thick, ->, -{Stealth[length=8pt]}]
+    ([shift={(30:2.8cm)}]0,0)
+    arc[start angle=30, end angle=-90, radius=2.8cm];
+
+\draw[thick, ->, -{Stealth[length=8pt]}]
+    ([shift={(-90:2.8cm)}]0,0)
+    arc[start angle=-90, end angle=-210, radius=2.8cm];
+
+% Flask
+\draw[thick]
+    (-0.2,  0.85) -- (-0.2,  0.45)
+    .. controls (-0.2,  0.2 ) and (-0.52,-0.07) .. (-0.52,-0.33)
+    .. controls (-0.52,-0.52) and ( 0.52,-0.52) .. ( 0.52,-0.33)
+    .. controls ( 0.52,-0.07) and ( 0.2,  0.2 ) .. ( 0.2,  0.45)
+    -- ( 0.2,  0.85) -- cycle;
+\draw[thick] (-0.23, 0.85) -- (0.23, 0.85);
+
+\node[font=\large\itshape] at (0, -1.0) {Experiments};
+
+% Outer labels at arc midpoints
+\node[font=\itshape] at (90:4.0cm)   {model\\development};
+\node[font=\itshape] at (-30:4.2cm)  {uncertainty\\quantification};
+\node[font=\itshape] at (-150:4.0cm) {parameter\\tuning};
+
+% ---- Production Inference (right side) ----
+
+\draw[thick]
+    (7.3,  -0.35) --
+    (7.3,   0.9)  --
+    (7.65,  0.9)  --
+    (7.65,  0.1)  --
+    (8.05,  0.5)  --
+    (8.05,  0.1)  --
+    (8.45,  0.5)  --
+    (8.45,  0.1)  --
+    (8.85,  0.5)  --
+    (8.85, -0.35) --
+    cycle;
+
+\draw[thick] (7.48, 1.1)  circle (0.11);
+\draw[thick] (7.60, 1.35) circle (0.14);
+\draw[thick] (7.43, 1.60) circle (0.18);
+
+\node[font=\itshape] at (8.075, -1.1) {Production\\Inference};
+\draw[arrow, thick] (2.9, 0.0) -- (7.0, 0.0);
+
+\end{tikzpicture}

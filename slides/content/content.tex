@@ -1,0 +1,239 @@
+\begin{frame}{Why Resource Awareness Matters}
+  \begin{columns}
+    \begin{column}{0.55\textwidth}
+      \begin{itemize}
+        \setlength{\itemsep}{1.5em}
+        \item Growing computatuinal demands of AI in physics
+        \item Environmental impact: CO$_2$ footprint of training and inference
+        \item Compute costs and computing cluster ressource allocation
+        \item Tracking resources as part of scientific documentation and reproducibility
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{images/AI_physics_publications.png}
+      \Tiny\texttt{[https://oecd.ai/en/data?selectedArea=ai-research]}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{AI Applications in Physics}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}
+        \setlength{\itemsep}{1.5em}
+        \item Source identification in astronomy
+        \item Particle track reconstruction in high-energy physics
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}
+        \setlength{\itemsep}{1.5em}
+        \item Refinement in medical imaging
+        \item Large language models for many applications
+      \end{itemize}
+    \end{column}
+  \end{columns}
+
+  \vspace{0.5cm}
+  \centering
+  \includegraphics[width=0.75\textwidth]{images/neutrinos_milkyway.png}\\
+  \Tiny\texttt{[IceCube Collaboration, Science 2023]}
+\end{frame}
+
+\begin{frame}{AI Workflows in Physics}
+  \centering
+  \include{content/ai_workflow.tex}
+\end{frame}
+
+\begin{frame}{DFG Sustainability Guidelines}
+      % \begin{itemize}
+      %   \setlength{\itemsep}{1.5em}
+      %   \item Growing computatuinal demands of AI in physics
+      %   \item Environmental impact: CO$_2$ footprint of training and inference
+      %   \item Compute costs and computing cluster ressource allocation
+      %   \item Tracking resources as part of scientific documentation and reproducibility
+      % \end{itemize}
+  \centering
+  \includegraphics[width=.8\textwidth]{images/dfg_sustainability.png}
+  \Tiny\texttt{[https://www.dfg.de/en/basics-topics/developments-within-the-research-system/sustainability-guide-for-research-processes]}
+\end{frame}
+
+\begin{frame}{ML tracking/monitoring in scientific workflows}
+  \begin{columns}
+    \begin{column}{0.55\textwidth}
+      % \begin{itemize}
+      %   \setlength{\itemsep}{1.5em}
+      %   \item Growing computatuinal demands of AI in physics
+      %   \item Environmental impact: CO$_2$ footprint of training and inference
+      %   \item Compute costs and computing cluster ressource allocation
+      %   \item Tracking resources as part of scientific documentation and reproducibility
+      % \end{itemize}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+      % \centering
+      % \includegraphics[width=\textwidth]{images/AI_physics_publications.png}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Measuring Resource Consumption}
+  \begin{columns}
+    \begin{column}{0.55\textwidth}
+      \begin{itemize}
+        \setlength{\itemsep}{1.5em}
+        \item Energy consumption (kWh, CO$_2$ equivalent)
+        \item GPU/CPU utilization
+        \item Memory usage
+        \item Training times
+        \item Inference times
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+      % \centering
+      % \includegraphics[width=\textwidth]{images/AI_physics_publications.png}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Typical Resource Profile in Physics AI Applications}
+  \begin{columns}
+    \begin{column}{0.55\textwidth}
+      % \begin{itemize}
+      %   \setlength{\itemsep}{1.5em}
+      %   \item Energy consumption (kWh, CO$_2$ equivalent)
+      %   \item GPU/CPU utilization
+      %   \item Memory usage
+      % \end{itemize}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+      % \centering
+      % \includegraphics[width=\textwidth]{images/AI_physics_publications.png}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+
+\begin{frame}{Available Tracking Methods}
+
+  \centering
+  {\bf{Static Estimation} \hspace{2cm} {Dynamic Estimation} \hspace{2cm} {External Measurement}}\\
+  \vspace*{1cm}
+  \centering
+  \includegraphics[width=\textwidth]{images/tracking_methods.png}
+  \Tiny\texttt{[arXiv:2509.22092]}
+
+\end{frame}
+
+\begin{frame}{Static Estimation}
+  
+  \begin{columns}
+    \begin{column}{0.65\textwidth}
+      \begin{itemize}
+        \setlength{\itemsep}{1.5em}
+        \item Statistical estimation
+        \item Based on configuration and environment
+        \item CO$_2$ Equiv. = Power ~\cdot~ Time ~\cdot~ CO$_2$ Efficiency
+        \item ML Impact Calculator\footnote{\url{https://www.climatechange.ai/papers/neurips2019/22}}
+        \item No flexible adjustments
+      \end{itemize}
+      \hfill*
+    \end{column}
+    \begin{column}{0.35\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{images/static_estimation.png}
+      \Tiny\texttt{[arXiv:2509.22092]}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+
+\begin{frame}{Dynamic Estimation}
+  
+  \begin{columns}
+    \begin{column}{0.65\textwidth}
+      \begin{itemize}
+        \setlength{\itemsep}{1.5em}
+        \item Profiling dynamic resource demand
+        \item Power x Running Time
+        \item Profiling software: experiment-impact-tracker\footnote{\url{https://arxiv.org/abs/2002.05651}} / CodeCarbon\footnote{\url{https://codecarbon.io/}}
+        \item Power Draw per short time interval
+        \item Misses power supply and cooling
+      \end{itemize}
+      \hfill*
+    \end{column}
+    \begin{column}{0.35\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{images/dynamic_estimation.png}
+      \Tiny\texttt{[arXiv:2509.22092]}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{External Measurements}
+  
+  \begin{columns}
+    \begin{column}{0.65\textwidth}
+      \begin{itemize}
+        \setlength{\itemsep}{1.5em}
+        \item Ground-truth energy consumption
+        \item Capture impact of all components\\
+        \rightarrow external measurement
+        \item Energy meter + camera + computer vision code
+        \item Energy meter between power supply and hardware
+        \item But: additional hardware and implementation effort
+      \end{itemize}
+      \hfill*
+    \end{column}
+    \begin{column}{0.35\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{images/external_measurements.png}
+      \Tiny\texttt{[arXiv:2509.22092]}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Combined Tracking}
+
+  \centering
+  {\bf{Static Estimation} \hspace{2cm} {Dynamic Estimation} \hspace{2cm} {External Measurement}}\\
+  \vspace*{1cm}
+  \centering
+  \includegraphics[width=\textwidth]{images/experimental_setup.png}
+  \Tiny\texttt{[arXiv:2509.22092]}
+
+\end{frame}
+
+
+\begin{frame}{LAMARR Energy Tracker (LET)}
+
+  \centering
+  {\bf{Static Estimation} \hspace{2cm} {Dynamic Estimation} \hspace{2cm} {External Measurement}}\\
+  \vspace*{1cm}
+  \centering
+  \includegraphics[width=\textwidth]{images/experimental_setup.png}
+  \Tiny\texttt{[arXiv:2509.22092]}
+
+\end{frame}
+
+\begin{frame}{STREP}
+
+  \centering
+  {\bf{Static Estimation} \hspace{2cm} {Dynamic Estimation} \hspace{2cm} {External Measurement}}\\
+  \vspace*{1cm}
+  \centering
+  \includegraphics[width=\textwidth]{images/experimental_setup.png}
+  \Tiny\texttt{[arXiv:2509.22092]}
+
+\end{frame}
+
+\begin{frame}{Final Advices}
+
+  \centering
+  {\bf{Static Estimation} \hspace{2cm} {Dynamic Estimation} \hspace{2cm} {External Measurement}}\\
+  \vspace*{1cm}
+  \centering
+  \includegraphics[width=\textwidth]{images/experimental_setup.png}
+  \Tiny\texttt{[arXiv:2509.22092]}
+
+\end{frame}
