@@ -1,6 +1,3 @@
-pip install codecarbon
-
-# Simple integration
 from codecarbon import EmissionsTracker
 
 tracker = EmissionsTracker()
