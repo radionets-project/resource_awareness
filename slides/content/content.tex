@@ -263,16 +263,19 @@
     \begin{column}{0.5\textwidth}
       \begin{itemize}
         \setlength{\itemsep}{1.5em}
-        \item GitHub: \url{https://github.com/mlco2/codecarbon}
+        \item GitHub: \iref{https://github.com/mlco2/codecarbon}{mlco2/codecarbon}[\faGithub]
         \item Installable via pip
         \item CSV output with emissions data
-        \item Automatic logging (e.g. MLflow/W\&B)
+        \item Automatic logging (e.g. CometML/W\&B)
       \end{itemize}
     \end{column}
     \hfill
     \begin{column}{0.48\textwidth}
-      \color{cwhite}
-      \inputminted{latex}{content/getting_started_codecarbon.tex}
+      \begin{minted}{toml}
+        $ uv pip install codecarbon
+      \end{minted}
+      \vspace{1.5em}
+      \inputminted{python}{content/getting_started_codecarbon.py}
     \end{column}
   \end{columns}
 \end{splitframe}
