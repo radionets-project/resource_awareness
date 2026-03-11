@@ -133,10 +133,10 @@
 
 
 % icon href
-\NewDocumentCommand \iref { s m m O{\faExternalLink*}} {%
-  \IfBooleanTF{#1}{
-    \href{#2}{{\footnotesize{#4}}\,#3}
-  }{
-    \href{#2}{{\footnotesize{#4}}\,\texttt{#3}}
-  }
+\NewDocumentCommand \iref { s m m O{\Tiny\faExternalLink*}} {%
+  \IfBooleanTF{#1}{%
+    \href{#2}{{\footnotesize{#4}}\,#3}%
+  }{%
+    \href{#2}{{\footnotesize{#4}}\,\texttt{#3}}%
+  }%
 }
