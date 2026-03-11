@@ -308,27 +308,183 @@
 \end{frame}
 
 
-\begin{frame}{LAMARR Energy Tracker (LET)}
-
-  \centering
-  {\bf{Static Estimation} \hspace{2cm} {Dynamic Estimation} \hspace{2cm} {External Measurement}}\\
-  \vspace*{1cm}
-  \centering
-  \includegraphics[width=\textwidth]{images/experimental_setup.png}
-  \Tiny\texttt{[arXiv:2509.22092]}
-
+\begin{frame}[fragile]{LAMARR Energy Tracker (LET)}
+  \begin{columns}
+    \begin{column}{0.6\textwidth}
+      \begin{itemize}
+        \setlength{\itemsep}{1.5em}
+        \item Installable via pip
+          {
+            \usemintedstyle{code-light}
+            \begin{minted}{shell-session}
+              $ uv pip install lamarr-energy-tracker
+            \end{minted}
+          }
+        \item Wrapper around CodeCarbon
+        \item Prints energy consumption as well as a summary statement
+        \item Stores emission data centrally in \texttt{\textasciitilde/.let/emissions.csv} (default)
+        \item Comes with CLI functionality
+      \end{itemize}
+    \end{column}
+    \hfill
+    \begin{column}{0.38\textwidth}
+      \centering
+      \includegraphics[width=0.6\textwidth]{images/let.png}
+      {\Tiny\texttt{[github.com/lamarr-institute/lamarr-energy-tracker]}}
+    \end{column}
+  \end{columns}
+  \vspace{4em}
+  \begin{center}
+    \iref{https://github.com/lamarr-institute/lamarr-energy-tracker}{lamarr-institute/lamarr-energy-tracker}[\faGithub]
+  \end{center}
 \end{frame}
 
-\begin{frame}{STREP}
+\begin{darkframe}[fragile]{LAMARR Energy Tracker (LET)}
+  \begin{minted}{python}
+    from lamarr_energy_tracker import EnergyTracker
 
-  \centering
-  {\bf{Static Estimation} \hspace{2cm} {Dynamic Estimation} \hspace{2cm} {External Measurement}}\\
-  \vspace*{1cm}
-  \centering
-  \includegraphics[width=\textwidth]{images/experimental_setup.png}
-  \Tiny\texttt{[arXiv:2509.22092]}
+    # Either use as a context manager
+    with EnergyTracker(project_name="your_research_project") as tracker:
+        # Your resource-heavy code here
+        pass
 
+    # Or manually
+    tracker = EnergyTracker(project_name="your_research_project")
+    tracker.start()
+    # Your resource-heavy code here
+    tracker.stop()
+  \end{minted}
+\end{darkframe}
+
+\begin{darkframe}[fragile]{LAMARR Energy Tracker (LET)}
+  \begin{minted}{shell-session}
+    $ python your_tracked_code.py
+
+    ...
+
+    Using CodeCarbon 3.0.8, the energy consumption of running all experiments on an
+    Intel(R) Core(TM) i7-10610U CPU is estimated to 0.135 kWh. This corresponds to estimated
+    carbon emissions of 0.051 kg of CO2-equivalents, assuming a carbon intensity of
+    380 gCO2/kWh~\cite{lamarr_energy_tracker,codecarbon}. Note that these numbers are
+    underestimations of actual resource consumption and do not account for overhead factors
+    or embodied impacts~\cite{ai_energy_validation}.
+  \end{minted}
+\end{darkframe}
+
+\begin{darkframe}[t,fragile]{Example: Logging with MLFlow and LET}
+  \begin{minted}{python}
+    import mlflow
+    import pandas as pd
+    from lamarr_energy_tracker import EnergyTracker
+
+  \end{minted}
+
+  \begin{onlyenv}<2->
+  \begin{minted}{python}
+    with EnergyTracker(project_name="deep_learning", output_dir="/model/save/path") as tracker:
+        # Your training/inference here
+        mlflow.log_metric(...)  # e.g., loss
+        mlflow.log_param(...)  # e.g., metadata (trainable params, batch size, architecture)
+        pass
+
+  \end{minted}
+  \end{onlyenv}
+
+  \begin{onlyenv}<3->
+  \begin{minted}{python}
+    # After training/inference
+    emission_data = pd.read_csv("/model/save/path/emissions.csv").to_dict()
+
+  \end{minted}
+  \end{onlyenv}
+
+  \begin{onlyenv}<4>
+  \begin{minted}{python}
+    eval_res = dict(
+        running_time_total=emission_data["duration"][0],
+        power_draw_total=emission_data["energy_consumed"][0] * 3.6e6,
+        ...
+    )
+
+    for key, val in eval_res.items():
+        mlflow.log_metric(key=key, value=value)
+  \end{minted}
+  \end{onlyenv}
+\end{darkframe}
+
+\begin{darkframe}[fragile]{Example: Logging with MLFlow and LET – Now what?}
+  \begin{center}
+    \huge\textcolor{ccyan}{Export the logged data to a \texttt{csv} file.}
+  \end{center}
+  \vspace{4em}
+  \begin{minted}{shell-session}
+      $ MLFLOW_TRACKING_URI="file:./path/to/mlruns/" mlflow experiments csv \
+        -x <experiment_id> -o export.csv
+  \end{minted}
+  \vspace{4em}
+  \uncover<2>{
+  \begin{center}
+    \huge\textcolor{ccyan}{We can now visualise our results using \texttt{STREP}.}
+  \end{center}
+  }
+\end{darkframe}
+
+\begin{frame}[fragile]{STREP: Sustainable and Trustworthy Reporting for ML and AI}
+
+  \begin{center}
+    \includegraphics[width=\textwidth]{images/ch3_framework.pdf}\\
+    \iref{https://github.com/raphischer/strep}{raphischer/strep}[\faGithub]
+  \end{center}
 \end{frame}
+
+\begin{darkframe}[fragile]{STREP: Sustainable and Trustworthy Reporting for ML and AI}
+  \begin{columns}[t]
+    \begin{column}{0.58\textwidth}
+      \begin{itemize}
+        \setlength{\itemsep}{1em}
+        \item Available on PyPI:
+          \begin{minted}{shell-session}
+              $ uv pip install strep[frontend]
+          \end{minted}
+        \item Visualise your data with a single script and a \texttt{JSON} file for metadata
+      \end{itemize}
+      \vspace{3em}
+      \begin{minted}{python}
+        from strep.index_scale import load_database, scale_and_rate
+        from strep.elex.app import Visualization
+
+        fname = 'path/to/your/database.pkl' # or .csv summary
+        # load database and meta information (if available)
+        database, meta = load_database(fname)
+        # index-scale and rate database
+        rated_database = scale_and_rate(database, meta)
+        # start the interactive exploration tool
+        app = Visualization(rated_database)
+        app.run()
+      \end{minted}
+    \end{column}
+    \hfill
+    \begin{column}{0.38\textwidth}
+      \texttt{meta\_properties.json}
+      \begin{minted}{json}
+        {
+            "num_trainable_parameters": {
+                "name": "Parameters",
+                "shortname": "PAR",
+                "unit": "Number",
+                "group": "Resources"
+            },
+            "power_draw": {
+                "name": "Power Draw per Epoch",
+                "shortname": "ENE",
+                "unit": "Wattseconds",
+                "group": "Resources"
+            }
+        }
+      \end{minted}
+    \end{column}
+  \end{columns}
+\end{darkframe}
 
 \begin{frame}{Final Advices}
 
