@@ -44,11 +44,11 @@ extend-exclude = ["examples"]
 
 [tool.ruff.lint]
 extend-select = [
-  "I",  # isort
-  "E", # pycodestyle
-  "F", # Pyflakes
-  "UP", # pyupgrade
-  "B", # flake8-bugbear
+  "I",   # isort
+  "E",   # pycodestyle
+  "F",   # Pyflakes
+  "UP",  # pyupgrade
+  "B",   # flake8-bugbear
   "SIM", # flake8-simplify
 ]
 ignore = ["B905", "UP038"]
