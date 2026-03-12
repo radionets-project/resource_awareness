@@ -1,3 +1,10 @@
+"""Adapted from radionets source code
+
+https://github.com/radionets-project/radionets
+
+Under the MIT License
+"""
+
 from lightning import LightningModule
 
 
