@@ -20,7 +20,7 @@ def get_predictions(
     trainer : lightning.pytorch.trainer.trainer.Trainer
         Lightning Trainer instance used to train the model.
     task : str, optional
-        Task to perform. Either 'training' or 'inference'. This
+        Task to perform. Either 'training', 'testing', or 'inference'. This
         will select the respective dataloader from the datamodule.
         Default: 'training'
 
@@ -35,45 +35,47 @@ def get_predictions(
     ifft_preds = []
     ifft_targets = []
 
-    match task:
-        case "inference":
+    if task == "inference":
+        dataloader = trainer.datamodule.predict_dataloader()
+
+        for batch in dataloader:
+            preds = trainer.model.predict_step(batch[0], batch_idx=0).detach().cpu()
+
+            # check if images are half or full
+            if preds.shape[-2] != preds.shape[-1]:
+                preds = apply_symmetry(preds)
+
+            ifft_preds.extend(get_ifft(preds))
+
+        return torch.stack(ifft_preds).detach().cpu().numpy()
+
+    elif task in {"training", "testing"}:
+        if task == "training":
+            dataloader = trainer.datamodule.val_dataloader()
+        else:
             dataloader = trainer.datamodule.predict_dataloader()
 
-            for batch in dataloader:
-                preds = trainer.model.predict_step(batch[0], batch_idx=0).detach().cpu()
+        for batch in dataloader:
+            preds = trainer.model.predict_step(batch[0], batch_idx=0).detach().cpu()
+            targets = batch[1].detach().cpu()
 
-                # check if images are half or full
-                if preds.shape[-2] != preds.shape[-1]:
-                    preds = apply_symmetry(preds)
+            # check if images are half or full
+            if preds.shape[-2] != preds.shape[-1]:
+                preds = apply_symmetry(preds)
+                targets = apply_symmetry(targets)
 
-                ifft_preds.extend(get_ifft(preds))
+            ifft_preds.extend(get_ifft(preds))
+            ifft_targets.extend(get_ifft(targets))
 
-            return torch.stack(ifft_preds).detach().cpu().numpy()
+        return (
+            torch.stack(ifft_preds).detach().cpu().numpy(),
+            torch.stack(ifft_targets).detach().cpu().numpy(),
+        )
 
-        case "training":
-            dataloader = trainer.datamodule.val_dataloader()
-
-            for batch in dataloader:
-                preds = trainer.model.predict_step(batch[0], batch_idx=0).detach().cpu()
-                targets = batch[1].detach().cpu()
-
-                # check if images are half or full
-                if preds.shape[-2] != preds.shape[-1]:
-                    preds = apply_symmetry(preds)
-                    targets = apply_symmetry(targets)
-
-                ifft_preds.extend(get_ifft(preds))
-                ifft_targets.extend(get_ifft(targets))
-
-            return (
-                torch.stack(ifft_preds).detach().cpu().numpy(),
-                torch.stack(ifft_targets).detach().cpu().numpy(),
-            )
-
-        case _:
-            raise ValueError(
-                f"No task {task!r} known. Available are 'inference' and 'training'."
-            )
+    else:
+        raise ValueError(
+            f"No task {task!r} known. Available are 'inference' and 'training'."
+        )
 
 
 def get_ifft(image, amp_phase=False, scale=False, uncertainty=False) -> torch.Tensor:

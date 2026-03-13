@@ -9,16 +9,17 @@ from lightning import LightningModule
 
 
 class TrainModule(LightningModule):
-    def __init__(self, model, loss_fn, optimizer, lr: float=1e-3):
+    def __init__(self, model_arch, loss_fn, optimizer, lr: float=1e-3):
         super().__init__()
-        self.save_hyperparameters(ignore=["model", "loss_fn"])
-        self.model = model
+        self.model_arch = model_arch
         self.loss_fn = loss_fn
         self.optimizer = optimizer
         self.lr = lr
+        self.save_hyperparameters()
+        
 
     def forward(self, inputs):
-        return self.model(inputs)
+        return self.model_arch(inputs)
 
     def training_step(self, batch, batch_idx):
         inputs, targets = self._extract_inputs_targets(batch)
