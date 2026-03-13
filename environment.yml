@@ -7,9 +7,14 @@ dependencies:
   - lightning>=2.6.1
   - matplotlib>=3.10.8
   - mlflow>=3.10.1
+  - natsort>=8.4.0
+  - numpy>=2.4.3
   - pytorch>=2.10.0
   - jupyterlab
+  - rich
+  - ipywidgets
   - pip
   - pip:
     - lamarr-energy-tracker
+    - strep[frontend]
     - -e .
