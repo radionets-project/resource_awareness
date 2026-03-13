@@ -31,25 +31,25 @@
     },
     "power_draw_total": {
         "name": "Training Power Draw",
-        "shortname": "ENT",
+        "shortname": "TPD",
         "unit": "Wattseconds",
         "group": "Resources"
     },
     "running_time_total": {
         "name": "Training Time",
-        "shortname": "RTT",
+        "shortname": "TT",
         "unit": "seconds",
         "group": "Resources"
     },
     "power_draw": {
         "name": "Power Draw per Epoch",
-        "shortname": "ENE",
+        "shortname": "PDE",
         "unit": "Wattseconds",
         "group": "Resources"
     },
     "running_time": {
         "name": "Time per Epoch",
-        "shortname": "RTE",
+        "shortname": "TPE",
         "unit": "seconds",
         "group": "Resources"
     }
