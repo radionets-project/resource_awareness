@@ -13,6 +13,13 @@ using pip. Then call `make` inside the slides directory.
 
 ## Hands-on Session
 
+To participate in the hands-on session, make sure to install the virtual environment we provide
+in this repository, e.g. using `uv` or `conda/mamba`:
+```
+$ uv pip install -r requirements.txt
+$ mamba env create --file=environment.yml
+```
+
 The repository contains two notebooks for the hands-on session. `resource_awareness.ipynb` contains a template
 for the tasks during the session, `resource_awareness_solution.ipynb` contains the solution to the tasks.
 The notebooks will teach you *one* way to track the emissions of your code/deep-learning models.
