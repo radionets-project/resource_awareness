@@ -1,8 +1,8 @@
 \begin{frame}{Why Resource Awareness Matters}
   \begin{center}
-    \includegraphics[width=\textwidth]{images/compute_trend.pdf}
+    \includegraphics[width=\textwidth]{images/compute_trend.pdf}\\
+    {\tiny{\texttt{[Fischer 2025 / Sevilla et al. 2022}]}}
   \end{center}
-  {\tiny{\texttt{[Fischer 2025 / Sevilla et al. 2022}]}}
 \end{frame}
 
 \begin{frame}{Why Resource Awareness Matters}
@@ -85,37 +85,28 @@
 \end{frame}
 
 \begin{frame}{Typical Resource Profile in Physics AI Applications}
-  \begin{columns}
-    \begin{column}{0.55\textwidth}
-
-    \begin{table}
-      \centering
-      \begin{tabular}{lcc}
-        \toprule
-        \textbf{Workflow Stage} & \textbf{Time} & \textbf{Energy} \\
-        \midrule
-        \textbf{Data Creation:} & & \\
-        Simulation Generation & X hours & Y kWh \\
-        Data Preprocessing & X hours & Y kWh \\
-        \midrule
-        \textbf{Development Cycle:} & & \\
-        Model Selection & X hours & Y kWh \\
-        Hyperparameter Tuning & X hours & Y kWh \\
-        Loss Selection & X hours & Y kWh \\
-        \midrule
-        \textbf{Production:} & & \\
-        Inference Run & X hours & Y kWh \\
-        \midrule
-        \textbf{Development Total} & XX hours & YY kWh \\
-        \bottomrule
-      \end{tabular}
-    \end{table}
-    \end{column}
-    \begin{column}{0.45\textwidth}
-      % \centering
-      % \includegraphics[width=\textwidth]{images/AI_physics_publications.png}
-    \end{column}
-  \end{columns}
+  \begin{table}
+    \centering
+    \begin{tabular}{lcc}
+      \toprule
+      \textbf{Workflow Stage} & \textbf{Time} & \textbf{Energy} \\
+      \midrule
+      \textbf{Data Creation:} & & \\
+      Simulation Generation & X hours & Y kWh \\
+      Data Preprocessing & X hours & Y kWh \\
+      \midrule
+      \textbf{Development Cycle:} & & \\
+      Model Selection & X hours & Y kWh \\
+      Hyperparameter Tuning & X hours & Y kWh \\
+      Loss Selection & X hours & Y kWh \\
+      \midrule
+      \textbf{Production:} & & \\
+      Inference Run & X hours & Y kWh \\
+      \midrule
+      \textbf{Development Total} & XX hours & YY kWh \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
 \end{frame}
 
 
