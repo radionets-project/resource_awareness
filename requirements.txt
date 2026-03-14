@@ -2,7 +2,7 @@ h5py>=3.16.0
 lightning>=2.6.1
 mlflow>=3.10.1
 natsort>=8.4.0
-numpy>=2.4.3
+numpy>=2.4.2
 torch>=2.10.0
 jupyterlab
 ipywidgets
