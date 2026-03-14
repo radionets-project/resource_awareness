@@ -12,11 +12,11 @@ class TrainModule(LightningModule):
     def __init__(self, train_config: dict) -> None:
         super().__init__()
         self.save_hyperparameters()
+        
         self.model = train_config["model"]()
         self.loss_fn = train_config["loss_fn"]()
         self.optimizer = train_config["optimizer"]
         self.lr = train_config["lr"]
-        
 
     def forward(self, inputs):
         return self.model(inputs)
