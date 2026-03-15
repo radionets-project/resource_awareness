@@ -360,7 +360,6 @@
 \begin{darkframe}[t,fragile]{Example: Logging with MLFlow and LET}
   \begin{minted}{python}
     import mlflow
-    import pandas as pd
     from lamarr_energy_tracker import EnergyTracker
 
   \end{minted}
@@ -379,7 +378,7 @@
   \begin{onlyenv}<3->
   \begin{minted}{python}
     # After training/inference
-    emission_data = pd.read_csv("/model/save/path/emissions.csv").to_dict()
+    emission_data = tracker.results.iloc[-1]
 
   \end{minted}
   \end{onlyenv}
@@ -387,8 +386,8 @@
   \begin{onlyenv}<4>
   \begin{minted}{python}
     eval_res = dict(
-        running_time_total=emission_data["duration"][0],
-        power_draw_total=emission_data["energy_consumed"][0] * 3.6e6,
+        running_time_total=emission_data["duration"],
+        power_draw_total=emission_data["energy_consumed"],
         ...
     )
 
