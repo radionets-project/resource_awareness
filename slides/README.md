@@ -5,6 +5,8 @@ Template taken from [beamerthemecode](https://github.com/aknierim/beamerthemecod
 ## Installation
 
 To build the slides, install the local `pygments_style` package located
-in this directory.
+in this directory
 ```
-
+$ uv pip install pygments_style
+```
+Then build the slides using `make`.
