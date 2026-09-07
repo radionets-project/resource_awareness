@@ -12,4 +12,3 @@ rated_database = scale_and_rate(database, meta)
 # start the interactive exploration tool
 app = Visualization(rated_database)
 app.run(port=8899)
-
