@@ -5,9 +5,9 @@ https://github.com/radionets-project/radionets
 Under the MIT License
 """
 
-from torch import nn
 from abc import ABC, abstractmethod
 
+from torch import nn
 
 __all__ = [
     "NNBlock",
