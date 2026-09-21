@@ -1,17 +1,17 @@
 from pygments.style import Style
 from pygments.token import (
-    Keyword,
-    Name,
     Comment,
-    String,
     Error,
+    Generic,
+    Keyword,
     Literal,
+    Name,
     Number,
     Operator,
     Other,
     Punctuation,
+    String,
     Text,
-    Generic,
     Whitespace,
 )
 
