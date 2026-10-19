@@ -9,13 +9,12 @@ from torch import nn
 
 from .blocks import SRBlock
 
-
 __all__ = [
     "SRResNet",
-    "SRResNet18",
-    "SRResNet10",
-    "SRResNet6",
     "SRResNet4",
+    "SRResNet6",
+    "SRResNet10",
+    "SRResNet18",
 ]
 
 
