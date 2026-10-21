@@ -393,7 +393,6 @@
     # Either use as a context manager
     with EnergyTracker(project_name="your_research_project") as tracker:
         # Your resource-heavy code here
-        pass
 
     # Or manually
     tracker = EnergyTracker(project_name="your_research_project")
@@ -431,7 +430,6 @@
         # Your training/inference here
         mlflow.log_metric(...)  # e.g., loss
         mlflow.log_param(...)  # e.g., metadata (trainable params, batch size, architecture)
-        pass
 
   \end{minted}
   \end{onlyenv}
@@ -464,7 +462,7 @@
   \end{center}
   \vspace{4em}
   \begin{minted}{shell-session}
-      $ MLFLOW_TRACKING_URI="file:./path/to/mlruns/" mlflow experiments csv \
+      $ MLFLOW_TRACKING_URI="sqlite:///path/to/mlruns.db" mlflow experiments csv \
         -x <experiment_id> -o export.csv
   \end{minted}
   \vspace{4em}
@@ -532,6 +530,49 @@
   \end{columns}
 \end{darkframe}
 
+\begin{frame}{Examples | Environment \& Setup}
+  \begin{minipage}{0.48\textwidth}
+    \begin{itemize}
+      \item Environment:
+        \begin{itemize}
+          \item [\to] 1x NVIDIA RTX PRO 6000 Blackwell @ 96GB
+          \item [\to] 1x AMD EPYC 9555 CPU @ 3.20GHz (64 cores)
+        \end{itemize}
+      \item Models:
+        \begin{itemize}
+          \item [\to] Architectures: SRResNet10, 18, 34
+          \item [\to] Optimizers: SGD, AdamW, RAdam, RMSprop
+          \item [\to] Loss: MSELoss, L1Loss, SplitL1Loss, MaskedSplitL1Loss
+          \item [\to] Dataset format: HDF5, WDS
+        \end{itemize}
+    \end{itemize}
+  \end{minipage}
+  \hfill%
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{plots/runs.pdf}
+  \end{minipage}
+\end{frame}
+
+\begin{frame}{Examples | Results}
+  \begin{center}
+    \includegraphics[width=0.9\textwidth]{plots/peak_valloss.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Examples | Results}
+  \begin{center}
+    \includegraphics[height=0.9\textheight]{plots/peak_powerdraw.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Examples | Results}
+  \begin{center}
+    \includegraphics[width=0.9\textwidth]{plots/peak_area.pdf}
+  \end{center}
+\end{frame}
+
+
 \begin{frame}{Recommendations}
   \begin{columns}
     \begin{column}{0.55\textwidth}
@@ -545,7 +586,7 @@
         \vspace{0.5em}
         \begin{itemize}
           \setlength{\itemsep}{0.5em}
-          \item Add CodeCarbon
+          \item Add the Lamarr Energy Tracker (LET) to your projects
           \item Integrate STREP for shared monitoring
           \item Ground-truth validation
         \end{itemize}
@@ -607,7 +648,7 @@
   \end{columns}
 \end{frame}
 
-\begin{frame}{Hands-on Session}
+\begin{frame}{GitHub Repository}
   \begin{center}
     {\huge\textcolor{ccyan}{Try emission tracking yourself:}}\\[2em]
     \iref{https://github.com/radionets-project/resource\_awareness}{radionets-project/resource\_awareness}[\faGithub]\\[4em]
