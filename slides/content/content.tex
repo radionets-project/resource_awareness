@@ -18,10 +18,16 @@
     \end{column}
     \begin{column}{0.45\textwidth}
       \centering
-      \includegraphics[width=\textwidth]{images/AI_physics_publications.png}
+      \includegraphics[width=\textwidth]{images/AI_physics_publications_update.png}
       \Tiny\texttt{\Big[~\iref{https://oecd.ai/en/data?selectedArea=ai-research}{https://oecd.ai/en/data?selectedArea=ai-research}~\Big]}
     \end{column}
   \end{columns}
+\end{frame}
+
+\begin{frame}{DFG Sustainability Guidelines}
+  \centering
+  \includegraphics[width=.8\textwidth]{images/dfg_sustainability.png}\\
+  \Tiny\texttt{\Big[~\iref{https://www.dfg.de/en/basics-topics/developments-within-the-research-system/sustainability-guide-for-research-processes}{DFG Sustainability Guide for Research Processes}~\Big]}
 \end{frame}
 
 \begin{frame}{AI Applications in Physics}
@@ -36,7 +42,7 @@
     \begin{column}{0.5\textwidth}
       \begin{itemize}
         \setlength{\itemsep}{1.5em}
-        \item Refinement in medical imaging
+        \item Refinement in medical imaging 
         \item Large language models for many applications
       \end{itemize}
     \end{column}
@@ -48,10 +54,34 @@
   \Tiny\texttt{\Big[~\iref{https://www.science.org/doi/full/10.1126/science.adc9818}{IceCube Collaboration, Science 2023}~\Big]}
 \end{frame}
 
-\begin{frame}{DFG Sustainability Guidelines}
+\begin{frame}{Radio Interferometry Context}
   \centering
-  \includegraphics[width=.8\textwidth]{images/dfg_sustainability.png}\\
-  \Tiny\texttt{\Big[~\iref{https://www.dfg.de/en/basics-topics/developments-within-the-research-system/sustainability-guide-for-research-processes}{DFG Sustainability Guide for Research Processes}~\Big]}
+  \includegraphics[height=5cm]{images/black_hole.jpg}
+  \includegraphics[height=5cm]{images/eht_layout.jpg}\\
+  \Tiny\texttt{\Big[~\iref{https://www.eventhorizontelescope.org/}{EHT, https://eventhorizontelescope.org/}~\Big]}
+\end{frame}
+
+\begin{frame}{Radio Interferometry Context}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}
+        \setlength{\itemsep}{1.5em}
+        \item Baseline $\rightarrow$ one Fourier component
+        \item Sample the sky with ongoing observartion
+        \item Inverse FT $\rightarrow$ dirty image
+        \item Ill-posed inverse problem
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \centering
+      \includegraphics[width=0.95\textwidth]{images/telescope.png}\\
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Radio Interferometry Context}
+  \centering
+  \includegraphics[width=0.95\textwidth]{images/vlba_frame_09.png}\\
 \end{frame}
 
 \begin{frame}{AI Workflows in Physics}
@@ -108,7 +138,6 @@
     \end{tabular}
   \end{table}
 \end{frame}
-
 
 \begin{frame}{Available Tracking Methods}
 
@@ -200,6 +229,7 @@
 
 \end{frame}
 
+
 \begin{frame}{CodeCarbon: Overview}
   \begin{columns}
     \begin{column}{0.55\textwidth}
@@ -241,6 +271,37 @@
       \Tiny\texttt{\Big[~\iref{https://codecarbon.io/}{codecarbon.io/}~\Big]}
     \end{column}
   \end{columns}
+\end{frame}
+
+\begin{frame}{Energy Comparison}
+  \centering
+  \includegraphics[width=0.95\textwidth]{images/energy_comparison.pdf}
+\end{frame}
+
+ \begin{frame}{Using ChatBots}
+  \centering
+  \includegraphics[width=0.95\textwidth]{images/llm_prompt_energy.pdf}
+\end{frame}
+
+\begin{frame}{Claude Code}
+  \centering
+  \includegraphics[width=0.95\textwidth]{images/claude_code_energy.pdf}
+\end{frame}
+
+\begin{frame}{Estimation Errors}
+
+  \centering
+  \includegraphics[width=\textwidth]{images/est_errors_small.png}
+  \Tiny\texttt{\Big[~\iref{https://arxiv.org/abs/2509.22092}{arXiv:2509.22092}~\Big]}
+
+\end{frame}
+
+\begin{frame}{Estimation Errors}
+
+  \centering
+  \includegraphics[width=\textwidth]{images/est_errors.png}
+  \Tiny\texttt{\Big[~\iref{https://arxiv.org/abs/2509.22092}{arXiv:2509.22092}~\Big]}
+
 \end{frame}
 
 \begin{splitframe}[fragile]{CodeCarbon: Getting Started}{Python}{0.5}
@@ -390,7 +451,7 @@
     )
 
     for key, val in eval_res.items():
-        mlflow.log_metric(key=key, value=value)
+        mlflow.log_metric(key=key, value=val)
   \end{minted}
   \end{onlyenv}
 \end{darkframe}
@@ -512,7 +573,7 @@
 \end{frame}
 
 
-\begin{frame}{Final Advices}
+\begin{frame}{Recommendations}
   \begin{columns}
     \begin{column}{0.55\textwidth}
       \begin{columns}
