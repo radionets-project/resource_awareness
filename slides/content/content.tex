@@ -18,10 +18,16 @@
     \end{column}
     \begin{column}{0.45\textwidth}
       \centering
-      \includegraphics[width=\textwidth]{images/AI_physics_publications.png}
+      \includegraphics[width=\textwidth]{images/AI_physics_publications_update.png}
       \Tiny\texttt{\Big[~\iref{https://oecd.ai/en/data?selectedArea=ai-research}{https://oecd.ai/en/data?selectedArea=ai-research}~\Big]}
     \end{column}
   \end{columns}
+\end{frame}
+
+\begin{frame}{DFG Sustainability Guidelines}
+  \centering
+  \includegraphics[width=.8\textwidth]{images/dfg_sustainability.png}\\
+  \Tiny\texttt{\Big[~\iref{https://www.dfg.de/en/basics-topics/developments-within-the-research-system/sustainability-guide-for-research-processes}{DFG Sustainability Guide for Research Processes}~\Big]}
 \end{frame}
 
 \begin{frame}{AI Applications in Physics}
@@ -36,7 +42,7 @@
     \begin{column}{0.5\textwidth}
       \begin{itemize}
         \setlength{\itemsep}{1.5em}
-        \item Refinement in medical imaging
+        \item Refinement in medical imaging 
         \item Large language models for many applications
       \end{itemize}
     \end{column}
@@ -48,10 +54,34 @@
   \Tiny\texttt{\Big[~\iref{https://www.science.org/doi/full/10.1126/science.adc9818}{IceCube Collaboration, Science 2023}~\Big]}
 \end{frame}
 
-\begin{frame}{DFG Sustainability Guidelines}
+\begin{frame}{Radio Interferometry Context}
   \centering
-  \includegraphics[width=.8\textwidth]{images/dfg_sustainability.png}\\
-  \Tiny\texttt{\Big[~\iref{https://www.dfg.de/en/basics-topics/developments-within-the-research-system/sustainability-guide-for-research-processes}{DFG Sustainability Guide for Research Processes}~\Big]}
+  \includegraphics[height=5cm]{images/black_hole.jpg}
+  \includegraphics[height=5cm]{images/eht_layout.jpg}\\
+  \Tiny\texttt{\Big[~\iref{https://www.eventhorizontelescope.org/}{EHT, https://eventhorizontelescope.org/}~\Big]}
+\end{frame}
+
+\begin{frame}{Radio Interferometry Context}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}
+        \setlength{\itemsep}{1.5em}
+        \item Baseline $\rightarrow$ one Fourier component
+        \item Sample the sky with ongoing observartion
+        \item Inverse FT $\rightarrow$ dirty image
+        \item Ill-posed inverse problem
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \centering
+      \includegraphics[width=0.95\textwidth]{images/telescope.png}\\
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Radio Interferometry Context}
+  \centering
+  \includegraphics[width=0.95\textwidth]{images/vlba_frame_09.png}\\
 \end{frame}
 
 \begin{frame}{AI Workflows in Physics}
@@ -108,7 +138,6 @@
     \end{tabular}
   \end{table}
 \end{frame}
-
 
 \begin{frame}{Available Tracking Methods}
 
@@ -200,6 +229,7 @@
 
 \end{frame}
 
+
 \begin{frame}{CodeCarbon: Overview}
   \begin{columns}
     \begin{column}{0.55\textwidth}
@@ -241,6 +271,37 @@
       \Tiny\texttt{\Big[~\iref{https://codecarbon.io/}{codecarbon.io/}~\Big]}
     \end{column}
   \end{columns}
+\end{frame}
+
+\begin{frame}{Energy Comparison}
+  \centering
+  \includegraphics[width=0.95\textwidth]{images/energy_comparison.pdf}
+\end{frame}
+
+ \begin{frame}{Using ChatBots}
+  \centering
+  \includegraphics[width=0.95\textwidth]{images/llm_prompt_energy.pdf}
+\end{frame}
+
+\begin{frame}{Claude Code}
+  \centering
+  \includegraphics[width=0.95\textwidth]{images/claude_code_energy.pdf}
+\end{frame}
+
+\begin{frame}{Estimation Errors}
+
+  \centering
+  \includegraphics[width=\textwidth]{images/est_errors_small.png}
+  \Tiny\texttt{\Big[~\iref{https://arxiv.org/abs/2509.22092}{arXiv:2509.22092}~\Big]}
+
+\end{frame}
+
+\begin{frame}{Estimation Errors}
+
+  \centering
+  \includegraphics[width=\textwidth]{images/est_errors.png}
+  \Tiny\texttt{\Big[~\iref{https://arxiv.org/abs/2509.22092}{arXiv:2509.22092}~\Big]}
+
 \end{frame}
 
 \begin{splitframe}[fragile]{CodeCarbon: Getting Started}{Python}{0.5}
@@ -332,7 +393,6 @@
     # Either use as a context manager
     with EnergyTracker(project_name="your_research_project") as tracker:
         # Your resource-heavy code here
-        pass
 
     # Or manually
     tracker = EnergyTracker(project_name="your_research_project")
@@ -370,7 +430,6 @@
         # Your training/inference here
         mlflow.log_metric(...)  # e.g., loss
         mlflow.log_param(...)  # e.g., metadata (trainable params, batch size, architecture)
-        pass
 
   \end{minted}
   \end{onlyenv}
@@ -392,7 +451,7 @@
     )
 
     for key, val in eval_res.items():
-        mlflow.log_metric(key=key, value=value)
+        mlflow.log_metric(key=key, value=val)
   \end{minted}
   \end{onlyenv}
 \end{darkframe}
@@ -403,7 +462,7 @@
   \end{center}
   \vspace{4em}
   \begin{minted}{shell-session}
-      $ MLFLOW_TRACKING_URI="file:./path/to/mlruns/" mlflow experiments csv \
+      $ MLFLOW_TRACKING_URI="sqlite:///path/to/mlruns.db" mlflow experiments csv \
         -x <experiment_id> -o export.csv
   \end{minted}
   \vspace{4em}
@@ -471,7 +530,50 @@
   \end{columns}
 \end{darkframe}
 
-\begin{frame}{Final Advices}
+\begin{frame}{Examples | Environment \& Setup}
+  \begin{minipage}{0.48\textwidth}
+    \begin{itemize}
+      \item Environment:
+        \begin{itemize}
+          \item [\to] 1x NVIDIA RTX PRO 6000 Blackwell @ 96GB
+          \item [\to] 1x AMD EPYC 9555 CPU @ 3.20GHz (64 cores)
+        \end{itemize}
+      \item Models:
+        \begin{itemize}
+          \item [\to] Architectures: SRResNet10, 18, 34
+          \item [\to] Optimizers: SGD, AdamW, RAdam, RMSprop
+          \item [\to] Loss: MSELoss, L1Loss, SplitL1Loss, MaskedSplitL1Loss
+          \item [\to] Dataset format: HDF5, WDS
+        \end{itemize}
+    \end{itemize}
+  \end{minipage}
+  \hfill%
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{plots/runs.pdf}
+  \end{minipage}
+\end{frame}
+
+\begin{frame}{Examples | Results}
+  \begin{center}
+    \includegraphics[width=0.9\textwidth]{plots/peak_valloss.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Examples | Results}
+  \begin{center}
+    \includegraphics[height=0.9\textheight]{plots/peak_powerdraw.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Examples | Results}
+  \begin{center}
+    \includegraphics[width=0.9\textwidth]{plots/peak_area.pdf}
+  \end{center}
+\end{frame}
+
+
+\begin{frame}{Recommendations}
   \begin{columns}
     \begin{column}{0.55\textwidth}
       \begin{columns}
@@ -484,7 +586,7 @@
         \vspace{0.5em}
         \begin{itemize}
           \setlength{\itemsep}{0.5em}
-          \item Add CodeCarbon
+          \item Add the Lamarr Energy Tracker (LET) to your projects
           \item Integrate STREP for shared monitoring
           \item Ground-truth validation
         \end{itemize}
@@ -546,7 +648,7 @@
   \end{columns}
 \end{frame}
 
-\begin{frame}{Hands-on Session}
+\begin{frame}{GitHub Repository}
   \begin{center}
     {\huge\textcolor{ccyan}{Try emission tracking yourself:}}\\[2em]
     \iref{https://github.com/radionets-project/resource\_awareness}{radionets-project/resource\_awareness}[\faGithub]\\[4em]

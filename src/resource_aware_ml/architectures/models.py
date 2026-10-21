@@ -9,7 +9,6 @@ from torch import nn
 
 from .blocks import SRBlock
 
-
 __all__ = [
     "SRResNet",
     "SRResNet18",
